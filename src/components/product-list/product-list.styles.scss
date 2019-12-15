@@ -1,0 +1,18 @@
+.products {
+  h4 {
+    margin-left: 10px;
+
+    @media (max-width: 968px) {
+      margin-left: 20px;
+    }
+
+    @media (max-width: 600px) {
+      margin-left: 10px;
+    }
+  }
+}
+.products__list {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}

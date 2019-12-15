@@ -1,0 +1,22 @@
+.product__item {
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin: 10px calc(10% / 12);
+  width: 15%;
+  @media (max-width: 968px) {
+    margin: 10px calc(20% / 8);
+    width: 20%;
+  }
+  @media (max-width: 600px) {
+    margin: 10px calc(10% / 4);
+    width: 45%;
+  }
+}
+
+.product__imageContainer {
+  max-width: 100px;
+
+  img {
+    width: 100%;
+  }
+}

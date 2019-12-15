@@ -1,0 +1,51 @@
+.login__group {
+  border: 3px solid black;
+  padding: 1.5rem 1rem;
+  margin: 5rem auto;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    width: 90%;
+  }
+
+  p {
+    width: 90%;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  form {
+    width: 90%;
+
+    input,
+    button {
+      padding: 5px;
+      margin: 8px 0;
+      width: 100%;
+      display: block;
+    }
+
+    button {
+      background: #e53c2e;
+      color: #fff;
+      border: none;
+    }
+  }
+}
+
+@media (max-width: 968px) {
+  .login__group {
+    width: 50%;
+  }
+}
+
+@media (max-width: 968px) {
+  .login__group {
+    width: 65%;
+  }
+}

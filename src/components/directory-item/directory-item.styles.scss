@@ -1,0 +1,24 @@
+.team-item {
+  margin: 2rem 0;
+  display: flex;
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .item-img-container {
+    width: 10%;
+  }
+
+  .item-info-container {
+    width: 30%;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    margin: 0.5rem 0;
+  }
+}
