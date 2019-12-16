@@ -3,6 +3,8 @@ import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
 import { auth, createProfile } from './firebase/firebase';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions';
 
 import Header from './components/header/header.component';
 import Home from './pages/home/home.component';
@@ -11,30 +13,22 @@ import Register from './pages/register/register.component';
 import Login from './pages/login/login.component';
 
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null
-    };
-  }
   unsubscribe = null;
   componentDidMount() {
-    // listen for user change and update state
+    const { setCurrentUser } = this.props;
+    // listen for user change and update state to user profile
     this.unsubscribe = auth.onAuthStateChanged(async user => {
       this.setState({ currentUser: user });
       if (user) {
         const userReference = await createProfile(user);
         userReference.onSnapshot(snapShot => {
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()
           });
         });
       } else {
-        this.setState({ currentUser: user });
+        setCurrentUser(user);
       }
     });
   }
@@ -44,7 +38,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header user={this.state.currentUser} />
+        <Header />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/shop' component={Shop} />
@@ -56,4 +50,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(App);
