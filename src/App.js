@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
-import { auth } from './firebase/firebase';
+import { auth, createProfile } from './firebase/firebase';
 
 import Header from './components/header/header.component';
 import Home from './pages/home/home.component';
@@ -20,9 +20,22 @@ class App extends React.Component {
   }
   unsubscribe = null;
   componentDidMount() {
-    this.unsubscribe = auth.onAuthStateChanged(user => {
+    // listen for user change and update state
+    this.unsubscribe = auth.onAuthStateChanged(async user => {
       this.setState({ currentUser: user });
-      console.log(this.state.currentUser);
+      if (user) {
+        const userReference = await createProfile(user);
+        userReference.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+        });
+      } else {
+        this.setState({ currentUser: user });
+      }
     });
   }
   componentWillUnmount() {

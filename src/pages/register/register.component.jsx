@@ -2,7 +2,7 @@ import React from 'react';
 
 import './register.styles.scss';
 
-import { auth } from '../../firebase/firebase';
+import { auth, createProfile } from '../../firebase/firebase';
 
 class Register extends React.Component {
   constructor(props) {
@@ -20,13 +20,24 @@ class Register extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   handleSubmit = async e => {
-    const { email, password } = this.state;
+    const { email, password, confirmPassword, firstName, lastName } = this.state;
+    if (password !== confirmPassword) {
+      alert('passwords dont match');
+      return;
+    }
     e.preventDefault();
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      console.log('user account created');
+      let { user } = await auth.createUserWithEmailAndPassword(email, password);
+      await createProfile(user, { firstName, lastName });
+      this.setState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      });
     } catch (error) {
-      console.log('error creating user account');
+      console.log(error);
     }
   };
   render() {
