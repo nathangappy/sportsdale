@@ -1,17 +1,24 @@
-.team-item {
-  margin: 2rem 0;
+.team__item {
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin: 2rem 1%;
   display: flex;
+  justify-content: space-between;
+  width: 23%;
 
   h1 {
     font-size: 1.3rem;
   }
 
   .item-img-container {
-    width: 10%;
+    width: 20%;
   }
 
   .item-info-container {
-    width: 30%;
+    width: 78%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   img {
@@ -20,5 +27,18 @@
 
   @media (max-width: 600px) {
     margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 968px) {
+  .team__item {
+    width: 48%;
+  }
+}
+
+@media (max-width: 600px) {
+  .team__item {
+    width: 98%;
+    margin: 1rem auto;
   }
 }

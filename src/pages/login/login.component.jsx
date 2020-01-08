@@ -24,7 +24,7 @@ class Login extends React.Component {
       this.setState({ email: '', password: '' });
       this.props.history.push('/');
     } catch (error) {
-      console.log('error signin in user');
+      console.log('error signing in user');
     }
   };
   render() {

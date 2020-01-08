@@ -5,6 +5,7 @@ import './header.styles.scss';
 import { auth } from '../../firebase/firebase';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { currentUser } from '../../redux/user/user.selectors';
 
 const Header = ({ user }) => (
   <div className='header'>
@@ -15,6 +16,7 @@ const Header = ({ user }) => (
       <div className='header__navigation'>
         <Link to='/'>Home</Link>
         <Link to='/shop'>Shop</Link>
+        <Link to='/cart'>Cart</Link>
         <div className='link' onClick={() => auth.signOut()}>
           Sign Out
         </div>
@@ -23,6 +25,7 @@ const Header = ({ user }) => (
       <div className='header__navigation'>
         <Link to='/'>Home</Link>
         <Link to='/shop'>Shop</Link>
+        <Link to='/cart'>Cart</Link>
         <Link to='/login'>Login</Link>
         {/* <Link to='/register'>Register</Link> */}
       </div>
@@ -31,7 +34,7 @@ const Header = ({ user }) => (
 );
 
 const mapStateToProps = state => ({
-  user: state.user.currentUser
+  user: currentUser(state)
 });
 
 export default connect(mapStateToProps)(Header);

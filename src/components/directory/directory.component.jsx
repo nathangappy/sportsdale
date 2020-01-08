@@ -57,7 +57,7 @@ class Directory extends React.Component {
   }
   render() {
     return (
-      <div className="team-directory">
+      <div className='team__directory'>
         {this.state.teams.map(({ name, imageUrl, id, link }) => (
           <DirectoryItem key={id} name={name} imageUrl={imageUrl} link={link} />
         ))}

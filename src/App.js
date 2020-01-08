@@ -1,16 +1,18 @@
 import React from 'react';
 import './App.css';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { auth, createProfile } from './firebase/firebase';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
+import { currentUser } from './redux/user/user.selectors';
 
 import Header from './components/header/header.component';
 import Home from './pages/home/home.component';
 import Shop from './pages/shop/shop.component';
 import Register from './pages/register/register.component';
 import Login from './pages/login/login.component';
+import Cart from './pages/cart/cart.component';
 
 class App extends React.Component {
   unsubscribe = null;
@@ -41,17 +43,22 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/shop' component={Shop} />
-          <Route exact path='/register' component={Register} />
-          <Route exact path='/login' component={Login} />
+          <Route path='/shop' component={Shop} />
+          <Route path='/cart' component={Cart} />
+          <Route exact path='/register' render={() => (this.props.user ? <Redirect to='/' /> : <Register />)} />
+          <Route exact path='/login' render={() => (this.props.user ? <Redirect to='/' /> : <Login />)} />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  user: currentUser(state)
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

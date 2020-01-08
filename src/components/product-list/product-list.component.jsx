@@ -8,8 +8,8 @@ const ProductList = ({ name, items }) => (
   <div className='products'>
     <h4>{name.toUpperCase()}</h4>
     <div className='products__list'>
-      {items.map(({ id, ...otherProps }) => (
-        <ProductItem key={id} {...otherProps} />
+      {items.map(item => (
+        <ProductItem key={item.id} item={item} />
       ))}
     </div>
   </div>
